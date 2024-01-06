@@ -23,7 +23,7 @@ public class FilterChainConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable) // CSRF needs to be disabled since application is stateless
                 .authorizeHttpRequests(auth -> {
 
                     auth
