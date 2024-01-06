@@ -30,7 +30,6 @@ public class FilterChainConfig {
                             .requestMatchers("/api/v1/auth/**").permitAll()
                             .requestMatchers("/api/v1/shoppers/{id}/cart").authenticated();
                 })
-                .cors(Customizer.withDefaults())
                 .oauth2ResourceServer(oauth -> oauth.jwt(jwtCustomizer -> jwtCustomizer.jwtAuthenticationConverter(authenticationConverter)))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).logout(Customizer.withDefaults());
 
