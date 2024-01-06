@@ -11,10 +11,10 @@ import java.util.UUID;
 @RequestMapping({"/api/v1"})
 public class ShopperController {
 
-    @GetMapping("/shoppers/{id}/cart")
-    @PreAuthorize("hasAuthority('ROLE_SHOPPER')")
-    public ResponseEntity<String> getCart(@PathVariable String id) {
-        String message = "Cart belongs to user with ID: " + id;
+    @GetMapping("/shoppers/{idInPath}/cart")
+    @PreAuthorize("hasAuthority('ROLE_SHOPPER') and authentication.principal.claims['id'] == #idInPath")
+    public ResponseEntity<String> getCart(@PathVariable String idInPath) {
+        String message = "Cart belongs to user with ID: " + idInPath;
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

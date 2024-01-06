@@ -32,7 +32,7 @@ public class FilterChainConfig {
                 })
                 .cors(Customizer.withDefaults())
                 .oauth2ResourceServer(oauth -> oauth.jwt(jwtCustomizer -> jwtCustomizer.jwtAuthenticationConverter(authenticationConverter)))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).logout(Customizer.withDefaults());
 
 
         return http.build();
