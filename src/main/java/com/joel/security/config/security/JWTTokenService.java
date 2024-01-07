@@ -36,7 +36,6 @@ public class JWTTokenService {
                 .claim("roles", scope) // adding a custom claim for roles
                 .claim("id", userId) // adding a custom claim for user ID
                 .build();
-
         // Encoding the JWT and returning the token value
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }

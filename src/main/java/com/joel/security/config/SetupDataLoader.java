@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
-
     private final RoleRepository roleRepository;
     private boolean alreadySetup = false;
 
@@ -25,19 +24,15 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
         if(alreadySetup) return;
-
         if(this.roleRepository.findByAuthority("ADMINISTRATOR").isPresent() || this.roleRepository.findByAuthority("SHOPPER").isPresent()) return;
 
         Role adminRole = new Role();
         adminRole.setAuthority(RoleType.ADMINISTRATOR.name());
-
         Role shopperRole = new Role();
         shopperRole.setAuthority(RoleType.SHOPPER.name());
-
         this.roleRepository.save(adminRole);
         this.roleRepository.save(shopperRole);
 
         this.alreadySetup = true;
-
     }
 }

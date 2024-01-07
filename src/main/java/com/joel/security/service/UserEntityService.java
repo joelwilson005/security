@@ -49,27 +49,20 @@ public class UserEntityService implements UserDetailsService {
 
 
     public HashMap<String, Object> authenticateShopper(String email, String password) {
-
         Shopper shopper = (Shopper) this.userRepository.findUserEntityByEmail(email).orElseThrow();
-
         var authentication = this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         String jwt = this.jwtTokenService.generateJwt(authentication, shopper.getId());
-
         var shopperAndJwt = new HashMap<String, Object>();
         shopperAndJwt.put("shopper", shopper);
         shopperAndJwt.put("jwt", jwt);
-
         return shopperAndJwt;
-
     }
 
     public HashMap<String, Object> registerShopper(RegisterShopperRequest registerShopperRequest) throws Exception {
-
         if (this.userRepository.findUserEntityByEmail(registerShopperRequest.email()).isPresent()) {
 
             throw new Exception("Email address is already present");
         }
-
         var shopper = new Shopper();
         shopper.setEmail(registerShopperRequest.email());
         shopper.setPassword(registerShopperRequest.password());
@@ -83,12 +76,10 @@ public class UserEntityService implements UserDetailsService {
 
         this.userRepository.save(shopper);
         return this.authenticateShopper(shopper.getEmail(), unencodedPassword);
-
     }
 
 
     public HashMap<String, Object> loginShopper(LoginShopperRequest request) {
-
         return this.authenticateShopper(request.email(), request.password());
     }
 }

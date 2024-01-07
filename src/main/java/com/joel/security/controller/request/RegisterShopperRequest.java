@@ -1,3 +1,5 @@
 package com.joel.security.controller.request;
 
-public record RegisterShopperRequest(String email, String password) {}
+import jakarta.validation.constraints.Email;
+
+public record RegisterShopperRequest(@Email String email, String password) {}
